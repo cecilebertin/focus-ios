@@ -84,7 +84,8 @@ Loop:
 			}
 		}
 
-		if !doc.IsComplete() {
+		var completionPercentage = doc.CompletionPercentage()
+		if completionPercentage < 0.3 {
 			fmt.Printf("Skipping: %s: not completely localized\n", path)
 			continue Loop
 		}
@@ -94,7 +95,7 @@ Loop:
 			for _, err := range errors {
 				fmt.Printf("Skipping: %s: because of validation error: %s\n", path, err)
 			}
-			continue Loop
+			// continue Loop
 		}
 
 		// Everything is good to go, actually import strings
